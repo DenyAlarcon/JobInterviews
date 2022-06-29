@@ -1,0 +1,25 @@
+CREATE DATABASE PowerLinkDB;
+
+CREATE TABLE Customers 
+(
+	Id INT PRIMARY KEY NOT NULL,
+	[Name] VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE Orders
+(
+	Id INT PRIMARY KEY NOT NULL,
+	CustomerId INT FOREIGN KEY REFERENCES Customers(Id) NOT NULL
+);
+
+INSERT INTO Customers VALUES (1, 'Max');
+INSERT INTO Customers VALUES (2, 'Pavel');
+INSERT INTO Customers VALUES (3, 'Ivan');
+INSERT INTO Customers VALUES (4, 'Leonid');
+
+INSERT INTO Orders VALUES (1, 2);
+INSERT INTO Orders VALUES (2, 4);
+
+SELECT Customers.[Name]
+FROM Customers
+WHERE Customers.Id NOT IN (SELECT DISTINCT Orders.CustomerId FROM Orders)
