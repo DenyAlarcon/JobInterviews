@@ -18,9 +18,9 @@ namespace Figures
             }
             set
             {
-                if (value < 0)
+                if (value <= 0)
                 {
-                    throw new ArgumentException($"Параметр {nameof(value)} не может быть отрицательным.");
+                    throw new ArgumentException($"Параметр {nameof(value)} не может быть отрицательным или меньшим нуля.");
                 }
                 radius = value;
             }
@@ -28,9 +28,9 @@ namespace Figures
 
         public Circle(double radius)
         {
-            if (radius < 0)
+            if (radius <= 0)
             {
-                throw new ArgumentException($"Параметр {nameof(radius)} не может быть отрицательным.");
+                throw new ArgumentException($"Параметр {nameof(radius)} не может быть отрицательным или меньшим нуля.");
             }
             this.radius = radius;
             this.name = "Круг";
@@ -44,6 +44,17 @@ namespace Figures
         public override double Perimeter()
         {
             return 2 * Math.PI * radius;
+        }
+
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            sb.Append($"{this.name} радиуса {this.radius:0.##}.\n");
+            sb.Append($"Площадь: {Area():0.##}.\n");
+            sb.Append($"Периметр: {Perimeter():0.##}.\n");
+
+            return sb.ToString();
         }
     }
 }

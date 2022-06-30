@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Figures
 {
-    internal class Rectangle : Figure
+    public class Rectangle : Figure
     {
         private double width;
-        private double heigth;
+        private double height;
 
         public double Width
         {
@@ -19,53 +19,64 @@ namespace Figures
             }
             set
             {
-                if (value < 0)
+                if (value <= 0)
                 {
-                    throw new ArgumentException($"Параметр {nameof(value)} не может быть отрицательным.");
+                    throw new ArgumentException($"Параметр {nameof(value)} не может быть отрицательным или меньшим нуля.");
                 }
                 width = value;
             }
         }
 
-        public double Heigth
+        public double Height
         {
             get
             {
-                return heigth;
+                return height;
             }
             set
             {
-                if (value < 0)
+                if (value <= 0)
                 {
-                    throw new ArgumentException($"Параметр {nameof(value)} не может быть отрицательным.");
+                    throw new ArgumentException($"Параметр {nameof(value)} не может быть отрицательным или меньшим нуля.");
                 }
-                heigth = value;
+                height = value;
             }
         }
 
         public Rectangle(double width, double height)
         {
-            if (width < 0)
+            if (width <= 0)
             {
-                throw new ArgumentException($"Параметр {nameof(width)} не может быть отрицательным.");
+                throw new ArgumentException($"Параметр {nameof(width)} не может быть отрицательным или меньшим нуля.");
             }
-            if (height < 0)
+            if (height <= 0)
             {
-                throw new ArgumentException($"Параметр {nameof(height)} не может быть отрицательным.");
+                throw new ArgumentException($"Параметр {nameof(height)} не может быть отрицательным или меньшим нуля.");
             }
             this.width = width;
-            this.heigth = height;
+            this.height = height;
             this.name = "Прямоугольник";
         }
 
         public override double Area()
         {
-            return width * heigth;
+            return width * height;
         }
 
         public override double Perimeter()
         {
-            return 2 * width + 2 * heigth;
+            return 2 * width + 2 * height;
+        }
+
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            sb.Append($"{this.name} с шириной {this.width:0.##} и высотой {this.height:0.##}.\n");
+            sb.Append($"Площадь: {Area():0.##}.\n");
+            sb.Append($"Периметр: {Perimeter():0.##}.\n");
+
+            return sb.ToString();
         }
     }
 }
